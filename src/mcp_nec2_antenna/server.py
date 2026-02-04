@@ -501,22 +501,37 @@ async def run_nec2_simulation(
 
 
 def parse_impedance(output: str) -> list[ImpedanceResult]:
-    """Parse impedance results from NEC2 output."""
+    """Parse impedance results from NEC2 output.
+
+    NEC2 output format:
+    - Frequency: "FREQUENCY : 1.4600E+02 MHz"
+    - Impedance in table: columns are TAG, SEG, VOLT_R, VOLT_I, CURR_R, CURR_I, IMP_R, IMP_I, ...
+    """
     impedances = []
 
-    sections = output.split("ANTENNA INPUT PARAMETERS")
-    if len(sections) > 1:
-        for section in sections[1:]:
-            match = re.search(
-                r"IMPEDANCE\s*=\s*([+-]?\d+\.?\d*)[,\s]+([+-]?\d+\.?\d*)",
-                section, re.IGNORECASE
-            )
-            if match:
-                resistance = float(match.group(1))
-                reactance = float(match.group(2))
+    # Split by frequency sections
+    freq_sections = re.split(r'-+\s*FREQUENCY\s*-+', output)
 
-                freq_match = re.search(r"FREQUENCY\s*=\s*(\d+\.?\d*)", section, re.IGNORECASE)
-                freq = float(freq_match.group(1)) if freq_match else 0.0
+    for section in freq_sections[1:] if len(freq_sections) > 1 else []:
+        # Parse frequency (scientific notation): "FREQUENCY : 1.4600E+02 MHz"
+        freq_match = re.search(r'FREQUENCY\s*:\s*([+-]?\d+\.?\d*(?:E[+-]?\d+)?)\s*MHz', section, re.IGNORECASE)
+        freq = float(freq_match.group(1)) if freq_match else 0.0
+
+        # Find ANTENNA INPUT PARAMETERS section and parse impedance from table
+        if "ANTENNA INPUT PARAMETERS" in section:
+            # Match data rows: numbers in scientific notation
+            # Format: TAG SEG VOLT_R VOLT_I CURR_R CURR_I IMP_R IMP_I ADM_R ADM_I POWER
+            data_pattern = re.compile(
+                r'^\s*(\d+)\s+(\d+)\s+'  # TAG, SEG
+                r'([+-]?\d+\.?\d*E[+-]?\d+)\s+([+-]?\d+\.?\d*E[+-]?\d+)\s+'  # VOLT
+                r'([+-]?\d+\.?\d*E[+-]?\d+)\s+([+-]?\d+\.?\d*E[+-]?\d+)\s+'  # CURR
+                r'([+-]?\d+\.?\d*E[+-]?\d+)\s+([+-]?\d+\.?\d*E[+-]?\d+)',    # IMP
+                re.MULTILINE
+            )
+
+            for match in data_pattern.finditer(section):
+                resistance = float(match.group(7))
+                reactance = float(match.group(8))
 
                 impedances.append(ImpedanceResult(
                     frequency_mhz=freq,
