@@ -1,0 +1,36 @@
+[project]
+name = "mcp-nec2-antenna"
+version = "0.1.0"
+description = "MCP server for NEC2 wire antenna design and simulation"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.10"
+authors = [
+    { name = "Adam Engelbrecht", email = "adam@rfingadam.com" }
+]
+keywords = ["mcp", "nec2", "antenna", "rf", "simulation", "ham-radio", "wireless"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = [
+    "mcp>=1.0.0",
+]
+
+[project.scripts]
+mcp-nec2-antenna = "mcp_nec2_antenna.server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mcp_nec2_antenna"]
