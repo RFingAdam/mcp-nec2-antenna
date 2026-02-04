@@ -272,14 +272,14 @@ EN
 | 3. Create Vertical | [x] | Height = 10.482m, 16 radials ✓ |
 | 4. Create Loop | [x] | Circumference = 21.112m ✓ |
 | 5. Create Inverted-V | [x] | Apex 20m, droop 45°, end height ~12.8m ✓ |
-| 6. Run Simulation | [ ] | Requires nec2c installation |
+| 6. Run Simulation | [x] | Dipole: 70.3Ω, VSWR=1.44, 2.05 dBi ✓ |
 | 7. Get NEC2 Cards | [x] | Valid NEC2 format with all required cards ✓ |
 | 8. List Antennas | [x] | All created antennas listed correctly ✓ |
 | 9. List Types | [x] | All 5 types with gain/pattern info ✓ |
 | 10. Error Handling | [x] | Graceful "Antenna not found" error ✓ |
-| 11. Full Workflow | [ ] | Requires nec2c for simulation step |
-| 12. Large Sweep | [ ] | Requires nec2c |
-| 13. Complex Yagi | [ ] | Requires nec2c |
+| 11. Full Workflow | [x] | 5-el Yagi: 10.35 dBi, F/B 10.8 dB ✓ |
+| 12. Large Sweep | [x] | 51 points completed successfully ✓ |
+| 13. Complex Yagi | [x] | 10 elements, 10.51 dBi gain ✓ |
 
 ---
 
