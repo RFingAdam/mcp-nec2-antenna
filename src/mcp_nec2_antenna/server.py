@@ -750,20 +750,23 @@ async def call_tool(name: str, arguments: dict[str, Any]) -> list[TextContent]:
                 num_radials=num_radials,
             )
             _antennas[antenna.id] = antenna
+            wavelength = antenna.wavelength()
             result = {
                 "success": True,
                 "antenna_id": antenna.id,
                 "name": antenna.name,
                 "type": "vertical",
                 "frequency_mhz": antenna.frequency_mhz,
+                "calculated_height_m": round(wavelength * 0.25, 3),
                 "radials": num_radials,
             }
 
         elif name == "nec2_create_loop":
+            height_m = arguments.get("height_m", 10.0)
             antenna = create_loop(
                 name=arguments["name"],
                 frequency_mhz=arguments["frequency_mhz"],
-                height_m=arguments.get("height_m", 10.0),
+                height_m=height_m,
             )
             _antennas[antenna.id] = antenna
             wavelength = antenna.wavelength()
@@ -774,24 +777,33 @@ async def call_tool(name: str, arguments: dict[str, Any]) -> list[TextContent]:
                 "type": "loop",
                 "frequency_mhz": antenna.frequency_mhz,
                 "circumference_m": round(wavelength, 3),
+                "height_m": height_m,
             }
 
         elif name == "nec2_create_inverted_v":
+            apex_height_m = arguments.get("apex_height_m", 15.0)
+            droop_angle_deg = arguments.get("droop_angle_deg", 45.0)
             antenna = create_inverted_v(
                 name=arguments["name"],
                 frequency_mhz=arguments["frequency_mhz"],
-                apex_height_m=arguments.get("apex_height_m", 15.0),
-                droop_angle_deg=arguments.get("droop_angle_deg", 45.0),
+                apex_height_m=apex_height_m,
+                droop_angle_deg=droop_angle_deg,
             )
             _antennas[antenna.id] = antenna
+            wavelength = antenna.wavelength()
+            arm_length = wavelength / 4 * 0.95
+            droop_rad = math.radians(droop_angle_deg)
+            end_height = apex_height_m - arm_length * math.cos(droop_rad)
             result = {
                 "success": True,
                 "antenna_id": antenna.id,
                 "name": antenna.name,
                 "type": "inverted_v",
                 "frequency_mhz": antenna.frequency_mhz,
-                "apex_height_m": arguments.get("apex_height_m", 15.0),
-                "droop_angle_deg": arguments.get("droop_angle_deg", 45.0),
+                "apex_height_m": apex_height_m,
+                "droop_angle_deg": droop_angle_deg,
+                "total_wire_length_m": round(arm_length * 2, 3),
+                "end_height_m": round(end_height, 3),
             }
 
         elif name == "nec2_simulate":
