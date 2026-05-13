@@ -1,9 +1,9 @@
 [project]
 name = "mcp-nec2-antenna"
-version = "0.1.0"
+version = "0.2.0"
 description = "MCP server for NEC2 wire antenna design and simulation"
 readme = "README.md"
-license = "Apache-2.0"
+license = "AGPL-3.0-or-later"
 requires-python = ">=3.10"
 authors = [
     { name = "Adam Engelbrecht", email = "adam@rfingadam.com" }
@@ -13,7 +13,7 @@ classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: Apache Software License",
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
