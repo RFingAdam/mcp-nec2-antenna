@@ -1,57 +1,73 @@
-<p align="center">
-  <img src="assets/logo.svg" alt="MCP NEC2 Antenna" width="400">
-</p>
+<div align="center">
 
-<p align="center">
-  <strong>Wire antenna design and simulation via MCP</strong>
-</p>
+<img src="assets/logo-banner.svg" alt="mcp-nec2-antenna — NEC2 wire-antenna method-of-moments solver" width="100%"/>
 
-<p align="center">
-  <a href="#installation">Installation</a> •
-  <a href="#features">Features</a> •
-  <a href="#usage-examples">Usage</a> •
-  <a href="#antenna-types">Antenna Types</a>
-</p>
+<br/>
+
+[![License](https://img.shields.io/badge/License-Apache--2.0-1E40AF.svg)](LICENSE)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-3776AB.svg)](https://www.python.org/downloads/)
+[![MCP](https://img.shields.io/badge/MCP-server-A78BFA.svg)](https://modelcontextprotocol.io)
+[![eng-mcp-suite](https://img.shields.io/badge/eng--mcp--suite-member-22D3EE.svg)](https://github.com/RFingAdam/eng-mcp-suite)
+
+**Design and simulate wire antennas with the NEC2 method-of-moments solver, driven over MCP.**
+**Gain patterns, impedance, VSWR, radiation lobes — from your terminal or AI agent.**
+
+[Quick start](#quick-start) ·
+[Tools](#tools) ·
+[Workflows](#workflows) ·
+[Documentation](#documentation)
+
+</div>
 
 ---
 
-An MCP server that enables AI assistants to design and simulate wire antennas using the NEC2 (Numerical Electromagnetics Code) method of moments solver. Perfect for ham radio operators, RF engineers, and antenna enthusiasts.
+## What is mcp-nec2-antenna?
 
-## Features
+mcp-nec2-antenna is an MCP server that wraps **NEC2** (Numerical
+Electromagnetics Code, version 2) — the classic method-of-moments
+wire-antenna solver — so an LLM agent can design, sweep, and analyze
+HF / VHF / UHF antennas through plain-English tool calls.
 
-### Antenna Design Tools
-- **nec2_create_dipole** - Create half-wave dipole antennas
-- **nec2_create_yagi** - Create Yagi-Uda directional antennas
-- **nec2_create_vertical** - Create ground-plane vertical antennas with radials
-- **nec2_create_loop** - Create full-wave loop antennas
-- **nec2_create_inverted_v** - Create inverted-V dipole antennas
+Drive it from any MCP client (Claude Desktop, Claude Code, Codex CLI)
+or call the NEC2C binary directly via the same card-deck export. Five
+parameterized antenna geometries (dipole, Yagi-Uda, ground-plane
+vertical, full-wave loop, inverted-V) compile to NEC2 GW/EX/FR/RP cards,
+solve with the `nec2c` reference engine, and return impedance, VSWR,
+gain, and front-to-back from a single tool call.
 
-### Simulation Tools
-- **nec2_simulate** - Run full NEC2 simulation with frequency sweep
-- **nec2_get_nec_cards** - Export raw NEC2 card deck for external tools
+**What mcp-nec2-antenna does well:**
 
-### Query Tools
-- **nec2_list_antennas** - List all designs in current session
-- **nec2_list_antenna_types** - Show available antenna types with characteristics
+- 🤖 **AI-native via MCP.** First-class [Model Context Protocol](https://modelcontextprotocol.io)
+  server with 9 tools. Any Claude / LLM agent can drive it.
+- 📡 **Reference engine.** Uses the canonical NEC2C C implementation —
+  the same solver behind 4nec2, xnec2c, and antenna textbooks.
+- ⚡ **Parameterized geometries.** Five built-in wire antennas with
+  closed-form initial sizing; the agent fills in band + height + element
+  count and gets a ready-to-solve deck.
+- 📐 **Three ground models.** free-space, perfect ground, real
+  (Sommerfeld) ground — picked per geometry.
+- 🔒 **Apache-2.0.** No copyleft on your output.
 
-## Installation
+---
 
-### Prerequisites
+## Quick start
 
-Install the NEC2 solver:
+### Install
+
+NEC2C must be on `PATH` first:
 
 ```bash
 # Ubuntu/Debian
 sudo apt install nec2c
 
-# macOS (via Homebrew)
+# macOS
 brew install nec2c
 
 # Arch Linux
 yay -S nec2c
 ```
 
-### 1. Clone and install
+Then:
 
 ```bash
 git clone https://github.com/RFingAdam/mcp-nec2-antenna.git
@@ -59,7 +75,7 @@ cd mcp-nec2-antenna
 uv pip install -e .
 ```
 
-### 2. Add to your MCP client
+### Wire it into your MCP client
 
 **Claude Code:**
 ```bash
@@ -71,93 +87,136 @@ claude mcp add nec2-antenna -- uv run --directory /path/to/mcp-nec2-antenna mcp-
 codex mcp add nec2-antenna -- uv run --directory /path/to/mcp-nec2-antenna mcp-nec2-antenna
 ```
 
-**Config file format:**
+**Raw config (Claude Desktop):**
+
 ```json
 {
-  "command": "uv",
-  "args": ["run", "--directory", "/path/to/mcp-nec2-antenna", "mcp-nec2-antenna"]
-}
-```
-
-## Usage Examples
-
-### Design a 2-meter band dipole
-
-```
-Create a dipole antenna for 146 MHz at 10 meters height, then simulate it
-```
-
-The AI will:
-1. Use `nec2_create_dipole` to design the antenna
-2. Use `nec2_simulate` to analyze performance
-3. Report impedance, VSWR, and radiation pattern
-
-### Design a directional Yagi for satellite work
-
-```
-Design a 5-element Yagi antenna for 435 MHz (70cm band) for working amateur satellites
-```
-
-### Compare antenna designs
-
-```
-Create both a vertical and a dipole for 7 MHz (40m band) and compare their radiation patterns
-```
-
-### Export for external simulation
-
-```
-Create a 3-element Yagi for 144 MHz and give me the NEC2 card deck
-```
-
-## Antenna Types
-
-| Type | Description | Gain | Pattern | Best For |
-|------|-------------|------|---------|----------|
-| **Dipole** | Half-wave horizontal wire | 2.15 dBi | Omnidirectional | General purpose, portable |
-| **Yagi-Uda** | Directional beam with elements | 7-15 dBi | Directional | DX, satellites, weak signals |
-| **Vertical** | Quarter-wave with ground radials | 0-2 dBi | Omnidirectional | Mobile, limited space |
-| **Loop** | Full-wave quad loop | 3-4 dBi | Bidirectional | Low noise, DX |
-| **Inverted-V** | Drooping dipole from single mast | 2 dBi | Omnidirectional | Single support available |
-
-## Simulation Output
-
-The `nec2_simulate` tool returns:
-
-- **Impedance**: Resistance and reactance at each frequency
-- **VSWR**: Standing wave ratio vs 50Ω
-- **Best Match**: Frequency with lowest VSWR
-- **Radiation Pattern**: Gain, beamwidth, front-to-back ratio
-
-Example output:
-```json
-{
-  "success": true,
-  "antenna_id": "abc-123",
-  "best_match": {
-    "frequency_mhz": 146.0,
-    "resistance": 72.3,
-    "reactance": 2.1,
-    "vswr": 1.45
-  },
-  "pattern": {
-    "max_gain_dbi": 7.2,
-    "front_to_back_db": 15.3
+  "mcpServers": {
+    "nec2-antenna": {
+      "command": "uv",
+      "args": ["run", "--directory", "/path/to/mcp-nec2-antenna", "mcp-nec2-antenna"]
+    }
   }
 }
 ```
 
-## Technical Details
+Then ask your assistant in plain English:
 
-- Uses NEC2C (Numerical Electromagnetics Code version 2, C implementation)
-- Method of Moments (MoM) electromagnetic simulation
-- Supports free-space, perfect ground, and real ground models
-- Automatic wire segmentation for accurate results
+> *"Design a 5-element Yagi for 435 MHz at 10 m height, simulate it, and tell me the gain and front-to-back."*
+
+The agent calls `nec2_create_yagi` followed by `nec2_simulate`, and
+reports impedance, VSWR, and radiation pattern.
+
+---
+
+## Tools
+
+| Tool                       | Purpose                                       | Key arguments                                  |
+| -------------------------- | --------------------------------------------- | ---------------------------------------------- |
+| `nec2_create_dipole`       | Half-wave horizontal dipole                   | `name`, `frequency_mhz`, `height_m`            |
+| `nec2_create_yagi`         | Yagi-Uda directional beam                     | `name`, `frequency_mhz`, `num_elements`, `boom_height_m` |
+| `nec2_create_vertical`     | Quarter-wave vertical w/ radials              | `name`, `frequency_mhz`, `num_radials`         |
+| `nec2_create_loop`         | Full-wave quad loop                           | `name`, `frequency_mhz`, `height_m`            |
+| `nec2_create_inverted_v`   | Inverted-V dipole from a single mast          | `name`, `frequency_mhz`, `apex_height_m`, `droop_deg` |
+| `nec2_simulate`            | Run NEC2 sweep — Z, VSWR, gain, pattern       | `antenna_id`, `frequency_start/stop_mhz`, `steps` |
+| `nec2_get_nec_cards`       | Export raw NEC2 card deck (for 4nec2/xnec2c)  | `antenna_id`                                   |
+| `nec2_list_antennas`       | List antennas in the current session          | _none_                                         |
+| `nec2_list_antenna_types`  | Show built-in antenna types + characteristics | _none_                                         |
+
+Full tool reference in [`docs/tools.md`](docs/tools.md).
+
+---
+
+## What it solves
+
+| Antenna       | Typical gain | Pattern         | Best for                                |
+| ------------- | ------------ | --------------- | --------------------------------------- |
+| Dipole        | 2.15 dBi     | Omnidirectional | General purpose, portable               |
+| Yagi-Uda      | 7–15 dBi     | Directional     | DX, satellites, weak-signal work        |
+| Vertical      | 0–2 dBi      | Omnidirectional | Mobile, limited real estate             |
+| Loop          | 3–4 dBi      | Bidirectional   | Low-noise receive, DX                   |
+| Inverted-V    | 2 dBi        | Omnidirectional | Single-mast portable                    |
+
+Ground models: **free-space**, **perfect** (PEC), and **real** (Sommerfeld
+two-medium). Pattern step is configurable; default is 5° azimuth/elevation.
+
+---
+
+## Workflows
+
+mcp-nec2-antenna fits in the following [eng-mcp-suite](https://github.com/RFingAdam/eng-mcp-suite)
+workflow bundles:
+
+- **`rf-design`** — closed-form trans-line synthesis (lineforge) +
+  wire-antenna MoM (this server) + circuit/filter sim (mcp-ltspice-qucs).
+- **`antenna-bench`** — antenna design + EMC limit lookup
+  (mcp-emc-regulations) before lab measurement.
+
+See the [suite manifest](https://github.com/RFingAdam/eng-mcp-suite/blob/main/manifest.yaml)
+for the full list of sibling MCPs and bundle definitions.
+
+---
+
+## Documentation
+
+- 📘 **[Quick Start](docs/index.md)** — install through first call.
+- 🛠️ **[Tool reference](docs/tools.md)** — every MCP tool, every argument.
+- 📐 **[Usage examples](docs/usage.md)** — practical end-to-end walkthroughs.
+- 🏗️ **[Architecture](docs/architecture.md)** — how this MCP fits in eng-mcp-suite.
+
+---
+
+## Part of eng-mcp-suite
+
+<sub>This MCP server is part of</sub>
+
+[![eng-mcp-suite](https://img.shields.io/badge/eng--mcp--suite-engineering%20MCP%20catalog-22D3EE?style=for-the-badge)](https://github.com/RFingAdam/eng-mcp-suite)
+
+<sub>An open umbrella for engineering MCP servers across RF, EMC, PCB,
+signal integrity, EM simulation, and lab test. Same brand, same docs
+structure, designed to compose. See the
+[full catalog](https://github.com/RFingAdam/eng-mcp-suite#whats-included)
+or jump to a sibling:</sub>
+
+| Domain                      | Sibling MCPs                                                                 |
+| --------------------------- | ---------------------------------------------------------------------------- |
+| **RF / Transmission lines** | [lineforge](https://github.com/RFingAdam/lineforge)                          |
+| **Circuit + filter sim**    | [mcp-ltspice-qucs](https://github.com/RFingAdam/mcp-ltspice-qucs)            |
+| **PCB / SI**                | [mcp-pcb-emcopilot](https://github.com/RFingAdam/mcp-pcb-emcopilot)          |
+| **EMC regulatory**          | [mcp-emc-regulations](https://github.com/RFingAdam/mcp-emc-regulations)      |
+| **EM simulation (3D)**      | [mcp-openems](https://github.com/RFingAdam/mcp-openems)                      |
+| **Diagrams**                | [drawio-engineering-mcp](https://github.com/RFingAdam/drawio-engineering-mcp) |
+| **Lab gear**                | [copper-mountain-vna-mcp](https://github.com/RFingAdam/copper-mountain-vna-mcp) |
+
+---
+
+## Contributing
+
+Contributions are welcome.
+
+1. **Pick a [GitHub issue](https://github.com/RFingAdam/mcp-nec2-antenna/issues)**.
+2. **Fork + branch** (`feature/your-thing` or `fix/your-bug`).
+3. **Run the local check suite**:
+   ```bash
+   uv run pytest
+   ```
+4. **Open a PR** — link the issue, request review.
+
+---
 
 ## License
 
-Apache-2.0
+[Apache-2.0](LICENSE).
 
-## Author
+## Acknowledgments
 
-Adam Engelbrecht - [@RFingAdam](https://github.com/RFingAdam)
+- **Gerald J. Burke (LLNL)** — original NEC2 Fortran (1981, public domain).
+- **Neoklis Kyriazis (5B4AZ)** — [NEC2C](http://www.qsl.net/5b4az/) C port,
+  the reference engine this server invokes.
+- **The MCP working group** — for the [Model Context Protocol](https://modelcontextprotocol.io) specification.
+
+<div align="center">
+
+<sub>Part of <a href="https://github.com/RFingAdam/eng-mcp-suite">eng-mcp-suite</a> — built for ham radio operators, RF engineers, and AI agents.</sub>
+
+</div>
