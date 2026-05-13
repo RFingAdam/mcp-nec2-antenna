@@ -1,0 +1,82 @@
+site_name: mcp-nec2-antenna
+site_description: NEC2 wire-antenna method-of-moments — gain patterns, impedance, smith charts
+site_url: https://rfingadam.github.io/mcp-nec2-antenna/
+repo_url: https://github.com/RFingAdam/mcp-nec2-antenna
+repo_name: RFingAdam/mcp-nec2-antenna
+edit_uri: edit/main/docs/
+copyright: Part of <a href="https://github.com/RFingAdam/eng-mcp-suite">eng-mcp-suite</a>.
+
+theme:
+  name: material
+  logo: assets/logo.svg
+  favicon: assets/logo.svg
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+  font:
+    text: Inter
+    code: JetBrains Mono
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.action.edit
+    - content.tabs.link
+
+nav:
+  - Overview: index.md
+  - Tools: tools.md
+  - Usage: usage.md
+  - Architecture: architecture.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  - search
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/RFingAdam/mcp-nec2-antenna
+    - icon: fontawesome/solid/sitemap
+      link: https://github.com/RFingAdam/eng-mcp-suite
+      name: eng-mcp-suite
