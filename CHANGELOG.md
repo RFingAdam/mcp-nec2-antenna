@@ -5,6 +5,15 @@ All notable changes to **mcp-nec2-antenna** are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] — 2026-05-13
+
+### Changed
+- **License: Apache-2.0 → AGPL-3.0-or-later.** Aligns with the
+  eng-mcp-suite toolkit-wide AGPL move (the AGPL closes the
+  "wrap as a paid SaaS without contributing back" gap). NEC2 itself
+  is public-domain US-government code; this wrapper is the original
+  code being relicensed.
+
 ## [0.1.0] — 2026-05-13
 
 ### Added

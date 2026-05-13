@@ -4,7 +4,7 @@
 
 <br/>
 
-[![License](https://img.shields.io/badge/License-Apache--2.0-1E40AF.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-AGPL--3.0-1E40AF.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-3776AB.svg)](https://www.python.org/downloads/)
 [![MCP](https://img.shields.io/badge/MCP-server-A78BFA.svg)](https://modelcontextprotocol.io)
 [![eng-mcp-suite](https://img.shields.io/badge/eng--mcp--suite-member-22D3EE.svg)](https://github.com/RFingAdam/eng-mcp-suite)
@@ -46,7 +46,7 @@ gain, and front-to-back from a single tool call.
   count and gets a ready-to-solve deck.
 - 📐 **Three ground models.** free-space, perfect ground, real
   (Sommerfeld) ground — picked per geometry.
-- 🔒 **Apache-2.0.** No copyleft on your output.
+- 🔒 **AGPL-3.0-or-later.** Modifications shared back if served over a network.
 
 ---
 
@@ -206,7 +206,10 @@ Contributions are welcome.
 
 ## License
 
-[Apache-2.0](LICENSE).
+[AGPL-3.0-or-later](LICENSE). Relicensed from Apache-2.0 in v0.2.0 to
+align with the eng-mcp-suite toolkit-wide AGPL move. The underlying
+NEC2 engine is public-domain US-government code; this wrapper is
+AGPL-3.0-or-later and is independent of NEC2's public-domain status.
 
 ## Acknowledgments
 
