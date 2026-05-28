@@ -459,7 +459,7 @@ async def run_nec2_simulation(
 
             raw_output = ""
             if os.path.exists(output_file):
-                with open(output_file, "r") as f:
+                with open(output_file) as f:
                     raw_output = f.read()
 
             impedances = parse_impedance(raw_output)
