@@ -22,7 +22,7 @@ classifiers = [
     "Topic :: Scientific/Engineering",
 ]
 dependencies = [
-    "mcp>=1.0.0",
+    "mcp>=1.0.0,<2.0.0",
 ]
 
 [project.optional-dependencies]
