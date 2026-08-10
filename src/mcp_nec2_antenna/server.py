@@ -29,7 +29,7 @@ from typing import Any, Optional
 
 from mcp.server import Server
 from mcp.server.stdio import stdio_server
-from mcp.types import TextContent, Tool
+from mcp.types import CallToolRequestParams, CallToolResult, ListToolsRequest, ListToolsResult, TextContent, Tool
 
 # Speed of light in m/s
 C = 299792458.0
@@ -605,14 +605,13 @@ server = Server("mcp-nec2-antenna")
 _antennas: dict[str, Antenna] = {}
 
 
-@server.list_tools()
-async def list_tools() -> list[Tool]:
+async def handle_list_tools(ctx, params: ListToolsRequest) -> ListToolsResult:
     """List available NEC2 antenna tools."""
-    return [
+    return ListToolsResult(tools=[
         Tool(
             name="nec2_create_dipole",
             description="Create a half-wave dipole antenna. Returns antenna ID for simulation.",
-            inputSchema={
+            input_schema={
                 "type": "object",
                 "properties": {
                     "name": {"type": "string", "description": "Antenna name"},
@@ -626,7 +625,7 @@ async def list_tools() -> list[Tool]:
         Tool(
             name="nec2_create_yagi",
             description="Create a Yagi-Uda directional antenna with specified number of directors.",
-            inputSchema={
+            input_schema={
                 "type": "object",
                 "properties": {
                     "name": {"type": "string", "description": "Antenna name"},
@@ -640,7 +639,7 @@ async def list_tools() -> list[Tool]:
         Tool(
             name="nec2_create_vertical",
             description="Create a quarter-wave vertical antenna with ground radials.",
-            inputSchema={
+            input_schema={
                 "type": "object",
                 "properties": {
                     "name": {"type": "string", "description": "Antenna name"},
@@ -653,7 +652,7 @@ async def list_tools() -> list[Tool]:
         Tool(
             name="nec2_create_loop",
             description="Create a full-wave loop antenna (quad configuration).",
-            inputSchema={
+            input_schema={
                 "type": "object",
                 "properties": {
                     "name": {"type": "string", "description": "Antenna name"},
@@ -666,7 +665,7 @@ async def list_tools() -> list[Tool]:
         Tool(
             name="nec2_create_inverted_v",
             description="Create an inverted-V dipole antenna (requires only one support).",
-            inputSchema={
+            input_schema={
                 "type": "object",
                 "properties": {
                     "name": {"type": "string", "description": "Antenna name"},
@@ -680,7 +679,7 @@ async def list_tools() -> list[Tool]:
         Tool(
             name="nec2_simulate",
             description="Run NEC2 simulation on an antenna to get impedance and radiation pattern.",
-            inputSchema={
+            input_schema={
                 "type": "object",
                 "properties": {
                     "antenna_id": {"type": "string", "description": "Antenna ID from create_* tools"},
@@ -694,7 +693,7 @@ async def list_tools() -> list[Tool]:
         Tool(
             name="nec2_get_nec_cards",
             description="Get the raw NEC2 card deck for an antenna design (for manual editing or external tools).",
-            inputSchema={
+            input_schema={
                 "type": "object",
                 "properties": {
                     "antenna_id": {"type": "string", "description": "Antenna ID"},
@@ -705,19 +704,20 @@ async def list_tools() -> list[Tool]:
         Tool(
             name="nec2_list_antennas",
             description="List all antenna designs in the current session.",
-            inputSchema={"type": "object", "properties": {}},
+            input_schema={"type": "object", "properties": {}},
         ),
         Tool(
             name="nec2_list_antenna_types",
             description="List available antenna types and their characteristics.",
-            inputSchema={"type": "object", "properties": {}},
+            input_schema={"type": "object", "properties": {}},
         ),
-    ]
+    ])
 
 
-@server.call_tool()
-async def call_tool(name: str, arguments: dict[str, Any]) -> list[TextContent]:
+async def handle_call_tool(ctx, params: CallToolRequestParams) -> CallToolResult:
     """Handle tool calls for NEC2 antenna operations."""
+    name = params.name
+    arguments = params.arguments
     try:
         if name == "nec2_create_dipole":
             antenna = create_dipole(
@@ -904,11 +904,20 @@ async def call_tool(name: str, arguments: dict[str, Any]) -> list[TextContent]:
         else:
             result = {"success": False, "error": f"Unknown tool: {name}"}
 
-        return [TextContent(type="text", text=json.dumps(result, indent=2))]
+        return CallToolResult(content=[TextContent(type="text", text=json.dumps(result, indent=2))])
 
     except Exception as e:
         error_result = {"success": False, "error": str(e)}
-        return [TextContent(type="text", text=json.dumps(error_result))]
+        return CallToolResult(content=[TextContent(type="text", text=json.dumps(error_result))])
+
+
+def register_handlers(server: Server) -> None:
+    """Register MCP request handlers."""
+    server.add_request_handler("tools/list", ListToolsRequest, handle_list_tools)
+    server.add_request_handler("tools/call", CallToolRequestParams, handle_call_tool)
+
+
+register_handlers(server)
 
 
 def main():
