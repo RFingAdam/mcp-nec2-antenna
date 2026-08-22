@@ -1,6 +1,6 @@
 """Smoke tests for mcp-nec2-antenna.
 
-These don't run an actual NEC2 simulation — they verify the package and MCP
+These don't run an actual NEC2 simulation. They verify the package and MCP
 server module import and that the server object is built with its tool surface
 registered.
 """

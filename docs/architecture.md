@@ -21,14 +21,14 @@
                               │
 ┌──────────────────────────────────────────────────────────────────┐
 │  Kernel                                                          │
-│  • nec2c — external C binary (LLNL Fortran NEC2, Kyriazis port)  │
+│  • nec2c: external C binary (LLNL Fortran NEC2, Kyriazis port)  │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
 The server is pure-Python orchestration. Each tool call: build a card
 deck, write it to a temp file, invoke `nec2c`, parse the output
 listing, return a structured response. No persistent state between
-restarts — the session is in-memory only.
+restarts: the session is in-memory only.
 
 ## Source layout
 
@@ -44,7 +44,7 @@ mcp-nec2-antenna/
 
 ## Position in eng-mcp-suite
 
-mcp-nec2-antenna sits in the **electromagnetic solver** layer — wire
+mcp-nec2-antenna sits in the **electromagnetic solver** layer: wire
 antennas / MoM only. For 3D structure / planar antennas reach for
 [`mcp-openems`](https://github.com/RFingAdam/mcp-openems) (FDTD).
 
@@ -65,14 +65,14 @@ antennas / MoM only. For 3D structure / planar antennas reach for
 
 ### Feeds (this MCP produces output that)…
 
-- **mcp-emc-regulations** — radiated-emission predictions for limit
+- **mcp-emc-regulations**: radiated-emission predictions for limit
   margin checks against CISPR / FCC.
-- **drawio-engineering-mcp** — antenna geometry + pattern for design
+- **drawio-engineering-mcp**: antenna geometry + pattern for design
   documentation.
 
 ### Consumes (this MCP accepts input from)…
 
-- **mcp-ltspice-qucs** — matching-network port impedance to feed
+- **mcp-ltspice-qucs**: matching-network port impedance to feed
   into the antenna feedpoint model.
 
 ### Workflow bundles that include this MCP
@@ -97,6 +97,6 @@ for full bundle definitions.
   antennas cover ~90% of practical wire-antenna design. Power users
   can still emit raw cards via `nec2_get_nec_cards` for advanced
   geometry edits in 4nec2 / xnec2c.
-- **In-memory sessions only.** No DB, no on-disk cache — a designed
+- **In-memory sessions only.** No DB, no on-disk cache. A designed
   antenna lives until the MCP server exits. Re-runs are cheap (NEC2
   solves a small antenna in milliseconds).

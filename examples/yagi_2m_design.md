@@ -52,16 +52,16 @@ Claude: A gamma-match or hairpin is the standard fix for low-Z driven
 
 - Forward gain in the 9–11 dBi range for a well-tuned 5-element design
 - Front-to-back ratio 20–25 dB
-- Feedpoint impedance 20–35 Ω real (a known property of long Yagis —
+- Feedpoint impedance 20–35 Ω real (a known property of long Yagis:
   requires a matching network)
 - Half-power beamwidths around 50–60° E-plane / 55–65° H-plane
 
 ## Tools exercised
 
-- `nec2_create_yagi` — Yagi geometry generation with DL6WU / W3DZZ /
+- `nec2_create_yagi`: Yagi geometry generation with DL6WU / W3DZZ /
   G3SEK templates
-- `nec2_simulate` — point-frequency analysis
-- `nec2_get_nec_cards` — export for further tuning in another tool
+- `nec2_simulate`: point-frequency analysis
+- `nec2_get_nec_cards`: export for further tuning in another tool
 
 ## Notes
 

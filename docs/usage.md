@@ -34,7 +34,7 @@ Register with Claude Desktop / Code:
 
 Restart your MCP client.
 
-## Step 1 — Synthesize the geometry
+## Step 1: Synthesize the geometry
 
 Ask the assistant:
 
@@ -53,7 +53,7 @@ The agent calls `nec2_create_yagi`:
 
 It returns an `antenna_id` and the wire layout.
 
-## Step 2 — Sweep impedance + VSWR around the band
+## Step 2: Sweep impedance + VSWR around the band
 
 > *"Sweep it from 430 to 440 MHz and tell me the best match."*
 
@@ -89,15 +89,15 @@ A trimmed response:
 ```
 
 The agent reports: VSWR of 1.81:1 at design frequency, 10.4 dBi forward
-gain, and 18.7 dB front-to-back — well past the spec.
+gain, and 18.7 dB front-to-back: well past the spec.
 
-## Step 3 — Export the card deck for 4nec2
+## Step 3: Export the card deck for 4nec2
 
 > *"Give me the raw NEC2 card deck so I can double-check it in 4nec2."*
 
 The agent calls `nec2_get_nec_cards` and returns the GW/EX/FR/GN/RP
 deck. You paste it into 4nec2 and the patterns agree to within
-0.1 dB — same solver under the hood.
+0.1 dB: same solver under the hood.
 
 ---
 

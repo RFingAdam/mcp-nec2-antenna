@@ -1,7 +1,7 @@
 # mcp-nec2-antenna
 
 **Design and simulate wire antennas with the NEC2 method-of-moments solver, driven over MCP.**
-**Gain patterns, impedance, VSWR, radiation lobes — from your terminal or AI agent.**
+**Gain patterns, impedance, VSWR, radiation lobes: from your terminal or AI agent.**
 
 ---
 
@@ -54,13 +54,13 @@ uv pip install -e .
 
 ## Where to next
 
-- [Tool reference](tools.md) — every MCP tool with arguments
-- [Usage examples](usage.md) — design a satellite Yagi end-to-end
-- [Architecture](architecture.md) — how this MCP fits inside eng-mcp-suite
+- [Tool reference](tools.md). Every MCP tool with arguments
+- [Usage examples](usage.md): design a satellite Yagi end-to-end
+- [Architecture](architecture.md): how this MCP fits inside eng-mcp-suite
 
 ---
 
 !!! note "Part of eng-mcp-suite"
-    This MCP server is part of [eng-mcp-suite](https://github.com/RFingAdam/eng-mcp-suite) —
+    This MCP server is part of [eng-mcp-suite](https://github.com/RFingAdam/eng-mcp-suite),
     an umbrella of engineering MCP servers across RF, EMC, PCB, signal
     integrity, EM simulation, and lab test.

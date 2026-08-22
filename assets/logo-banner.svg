@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 320"
-     role="img" aria-label="mcp-nec2-antenna — NEC2 wire-antenna method-of-moments solver">
-  <title>mcp-nec2-antenna — NEC2 wire-antenna method-of-moments solver</title>
+     role="img" aria-label="mcp-nec2-antenna: NEC2 wire-antenna method-of-moments solver">
+  <title>mcp-nec2-antenna: NEC2 wire-antenna method-of-moments solver</title>
 
   <defs>
     <linearGradient id="t-bg" x1="0" y1="0" x2="1" y2="0">

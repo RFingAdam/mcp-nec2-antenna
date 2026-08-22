@@ -30,7 +30,7 @@ Claude: [calls nec2_create_dipole with freq_mhz=435, height_m=10,
          freq_sweep_stop=450, freq_sweep_steps=31]
 
         Resonance found at 433.0 MHz (Z = 71.8 + j0.0 Ω, VSWR 1.44:1
-        into 50 Ω). Slightly low — the dipole is ~0.5% long for
+        into 50 Ω). Slightly low. The dipole is ~0.5% long for
         target. Resonance shifts up if you trim each leg by ~1.6 mm.
 
 You: What's the VSWR ≤ 2:1 bandwidth?
@@ -52,9 +52,9 @@ Claude: [reads back the previous sweep]
 
 ## Tools exercised
 
-- `nec2_create_dipole` — geometry generation
-- `nec2_simulate` — frequency sweep driver
-- (Optionally) `nec2_get_nec_cards` — to export the deck for inspection
+- `nec2_create_dipole`: geometry generation
+- `nec2_simulate`: frequency sweep driver
+- (Optionally) `nec2_get_nec_cards`: to export the deck for inspection
 
 ## Notes
 

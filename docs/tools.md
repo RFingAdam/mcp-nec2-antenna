@@ -34,7 +34,7 @@ Create a half-wave horizontal dipole and add it to the session.
 | `wire_radius_mm` | number  | 1.0     | Wire radius (mm)                             |
 | `description`    | string  | `""`    | Optional design notes                        |
 
-**Returns** — `antenna_id`, computed wire length, segment count.
+**Returns**: `antenna_id`, computed wire length, segment count.
 
 ---
 
@@ -112,7 +112,7 @@ return impedance, VSWR, gain, and pattern.
 | `steps`               | int      | 11      | Number of sweep points               |
 | `ground_type`         | enum     | `real`  | `free_space` / `perfect` / `real`    |
 
-**Returns** — per-frequency `resistance`, `reactance`, `vswr`, plus a
+**Returns**: per-frequency `resistance`, `reactance`, `vswr`, plus a
 `best_match` summary, peak gain (dBi), and front-to-back ratio.
 
 ---
@@ -122,9 +122,9 @@ return impedance, VSWR, gain, and pattern.
 Export the raw NEC2 card deck (`GW`, `EX`, `FR`, `GN`, `RP`, `EN`) so
 you can run it in 4nec2, xnec2c, or any other NEC frontend.
 
-**Arguments** — `antenna_id`.
+**Arguments**: `antenna_id`.
 
-**Returns** — multiline string of cards.
+**Returns**: multiline string of cards.
 
 ---
 

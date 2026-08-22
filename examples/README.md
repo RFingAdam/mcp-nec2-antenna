@@ -8,11 +8,11 @@ Claude / MCP client.
 | Example | What it shows |
 |---|---|
 | [`dipole_resonance_sweep.md`](dipole_resonance_sweep.md) | Designing a 70-cm half-wave dipole and sweeping it across 420–450 MHz to find the resonance and impedance-bandwidth. |
-| [`yagi_2m_design.md`](yagi_2m_design.md) | Five-element 2-meter (144 MHz) Yagi-Uda design — boom length, element spacing, expected forward gain and F/B ratio. |
+| [`yagi_2m_design.md`](yagi_2m_design.md) | Five-element 2-meter (144 MHz) Yagi-Uda design: boom length, element spacing, expected forward gain and F/B ratio. |
 
 ## Running examples
 
-Examples are written as Claude conversation scripts — user prompts on
+Examples are written as Claude conversation scripts: user prompts on
 the left, expected tool calls on the right. To reproduce:
 
 1. Install: `pip install git+https://github.com/RFingAdam/mcp-nec2-antenna.git`

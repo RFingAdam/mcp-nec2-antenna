@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/logo-banner.svg" alt="mcp-nec2-antenna — NEC2 wire-antenna method-of-moments solver" width="100%"/>
+<img src="assets/logo-banner.svg" alt="mcp-nec2-antenna: NEC2 wire-antenna method-of-moments solver" width="100%"/>
 
 <br/>
 
@@ -10,7 +10,7 @@
 [![eng-mcp-suite](https://img.shields.io/badge/eng--mcp--suite-member-22D3EE.svg)](https://github.com/RFingAdam/eng-mcp-suite)
 
 **Design and simulate wire antennas with the NEC2 method-of-moments solver, driven over MCP.**
-**Gain patterns, impedance, VSWR, radiation lobes — from your terminal or AI agent.**
+**Gain patterns, impedance, VSWR, radiation lobes: from your terminal or AI agent.**
 
 [Quick start](#quick-start) ·
 [Tools](#tools) ·
@@ -24,8 +24,8 @@
 ## What is mcp-nec2-antenna?
 
 mcp-nec2-antenna is an MCP server that wraps **NEC2** (Numerical
-Electromagnetics Code, version 2) — the classic method-of-moments
-wire-antenna solver — so an LLM agent can design, sweep, and analyze
+Electromagnetics Code, version 2). The classic method-of-moments
+wire-antenna solver, so an LLM agent can design, sweep, and analyze
 HF / VHF / UHF antennas through plain-English tool calls.
 
 Drive it from any MCP client (Claude Desktop, Claude Code, Codex CLI)
@@ -39,13 +39,13 @@ gain, and front-to-back from a single tool call.
 
 - 🤖 **AI-native via MCP.** First-class [Model Context Protocol](https://modelcontextprotocol.io)
   server with 9 tools. Any Claude / LLM agent can drive it.
-- 📡 **Reference engine.** Uses the canonical NEC2C C implementation —
-  the same solver behind 4nec2, xnec2c, and antenna textbooks.
+- 📡 **Reference engine.** Uses the canonical NEC2C C implementation.
+  The same solver behind 4nec2, xnec2c, and antenna textbooks.
 - ⚡ **Parameterized geometries.** Five built-in wire antennas with
   closed-form initial sizing; the agent fills in band + height + element
   count and gets a ready-to-solve deck.
 - 📐 **Three ground models.** free-space, perfect ground, real
-  (Sommerfeld) ground — picked per geometry.
+  (Sommerfeld) ground: picked per geometry.
 - 🔒 **AGPL-3.0-or-later.** Modifications shared back if served over a network.
 
 ---
@@ -118,7 +118,7 @@ reports impedance, VSWR, and radiation pattern.
 | `nec2_create_vertical`     | Quarter-wave vertical w/ radials              | `name`, `frequency_mhz`, `num_radials`         |
 | `nec2_create_loop`         | Full-wave quad loop                           | `name`, `frequency_mhz`, `height_m`            |
 | `nec2_create_inverted_v`   | Inverted-V dipole from a single mast          | `name`, `frequency_mhz`, `apex_height_m`, `droop_deg` |
-| `nec2_simulate`            | Run NEC2 sweep — Z, VSWR, gain, pattern       | `antenna_id`, `frequency_start/stop_mhz`, `steps` |
+| `nec2_simulate`            | Run NEC2 sweep: Z, VSWR, gain, pattern       | `antenna_id`, `frequency_start/stop_mhz`, `steps` |
 | `nec2_get_nec_cards`       | Export raw NEC2 card deck (for 4nec2/xnec2c)  | `antenna_id`                                   |
 | `nec2_list_antennas`       | List antennas in the current session          | _none_                                         |
 | `nec2_list_antenna_types`  | Show built-in antenna types + characteristics | _none_                                         |
@@ -147,9 +147,9 @@ two-medium). Pattern step is configurable; default is 5° azimuth/elevation.
 mcp-nec2-antenna fits in the following [eng-mcp-suite](https://github.com/RFingAdam/eng-mcp-suite)
 workflow bundles:
 
-- **`rf-design`** — closed-form trans-line synthesis (lineforge) +
+- **`rf-design`**: closed-form trans-line synthesis (lineforge) +
   wire-antenna MoM (this server) + circuit/filter sim (mcp-ltspice-qucs).
-- **`antenna-bench`** — antenna design + EMC limit lookup
+- **`antenna-bench`**: antenna design + EMC limit lookup
   (mcp-emc-regulations) before lab measurement.
 
 See the [suite manifest](https://github.com/RFingAdam/eng-mcp-suite/blob/main/manifest.yaml)
@@ -159,10 +159,10 @@ for the full list of sibling MCPs and bundle definitions.
 
 ## Documentation
 
-- 📘 **[Quick Start](docs/index.md)** — install through first call.
-- 🛠️ **[Tool reference](docs/tools.md)** — every MCP tool, every argument.
-- 📐 **[Usage examples](docs/usage.md)** — practical end-to-end walkthroughs.
-- 🏗️ **[Architecture](docs/architecture.md)** — how this MCP fits in eng-mcp-suite.
+- 📘 **[Quick Start](docs/index.md)**: install through first call.
+- 🛠️ **[Tool reference](docs/tools.md)**. Every MCP tool, every argument.
+- 📐 **[Usage examples](docs/usage.md)**: practical end-to-end walkthroughs.
+- 🏗️ **[Architecture](docs/architecture.md)**: how this MCP fits in eng-mcp-suite.
 
 ---
 
@@ -200,7 +200,7 @@ Contributions are welcome.
    ```bash
    uv run pytest
    ```
-4. **Open a PR** — link the issue, request review.
+4. **Open a PR**: link the issue, request review.
 
 ---
 
@@ -213,22 +213,22 @@ AGPL-3.0-or-later and is independent of NEC2's public-domain status.
 
 ## Commercial licensing
 
-This project is licensed under AGPL-3.0-or-later. A commercial license —
-for embedding in a closed-source product, hosting as a paid service
-without AGPL's share-back obligations, or proprietary redistribution —
+This project is licensed under AGPL-3.0-or-later. A commercial license
+(for embedding in a closed-source product, hosting as a paid service
+without AGPL's share-back obligations, or proprietary redistribution)
 is available on a case-by-case basis. See [eng-mcp-suite's licensing
 policy](https://github.com/RFingAdam/eng-mcp-suite/blob/main/LICENSE_SUMMARY.md#commercial-licensing)
 or open an issue and tag `@RFingAdam`.
 
 ## Acknowledgments
 
-- **Gerald J. Burke (LLNL)** — original NEC2 Fortran (1981, public domain).
-- **Neoklis Kyriazis (5B4AZ)** — [NEC2C](http://www.qsl.net/5b4az/) C port,
+- **Gerald J. Burke (LLNL)**: original NEC2 Fortran (1981, public domain).
+- **Neoklis Kyriazis (5B4AZ)**: [NEC2C](http://www.qsl.net/5b4az/) C port,
   the reference engine this server invokes.
-- **The MCP working group** — for the [Model Context Protocol](https://modelcontextprotocol.io) specification.
+- **The MCP working group**: for the [Model Context Protocol](https://modelcontextprotocol.io) specification.
 
 <div align="center">
 
-<sub>Part of <a href="https://github.com/RFingAdam/eng-mcp-suite">eng-mcp-suite</a> — built for ham radio operators, RF engineers, and AI agents.</sub>
+<sub>Part of <a href="https://github.com/RFingAdam/eng-mcp-suite">eng-mcp-suite</a>: built for ham radio operators, RF engineers, and AI agents.</sub>
 
 </div>
