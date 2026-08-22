@@ -1,5 +1,5 @@
 site_name: mcp-nec2-antenna
-site_description: NEC2 wire-antenna method-of-moments: gain patterns, impedance, smith charts
+site_description: NEC2 wire-antenna method-of-moments, gain patterns, impedance, smith charts
 site_url: https://rfingadam.github.io/mcp-nec2-antenna/
 repo_url: https://github.com/RFingAdam/mcp-nec2-antenna
 repo_name: RFingAdam/mcp-nec2-antenna
