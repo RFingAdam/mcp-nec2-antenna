@@ -211,6 +211,16 @@ align with the eng-mcp-suite toolkit-wide AGPL move. The underlying
 NEC2 engine is public-domain US-government code; this wrapper is
 AGPL-3.0-or-later and is independent of NEC2's public-domain status.
 
+## Trademarks and brand assets
+
+This project is not affiliated with, endorsed by, or sponsored by Lawrence
+Livermore National Laboratory or any distributor of NEC2. "NEC2" is used here only
+to identify the electromagnetics code this project interoperates with.
+
+The project name and the logo files in this repository are not part of the licensed
+work. The licence above grants no permission to use them, except as needed to describe
+the origin of the work.
+
 ## Commercial licensing
 
 This project is licensed under AGPL-3.0-or-later. A commercial license
