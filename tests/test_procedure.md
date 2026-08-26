@@ -56,7 +56,9 @@ Expected length = (300/146) * 0.5 * 0.95 ≈ 0.975m
 **Expected Results:**
 - Tool: `nec2_create_yagi` called
 - Returns antenna with 5 elements (1 reflector + 1 driven + 3 directors)
-- Expected gain estimate: ~13 dBi
+- `gain_dbi` ~10.7 dBi with `gain_basis: "simulated"` (nec2c installed), or a
+  labelled boom-length estimate with `gain_basis: "estimated"` if it is not
+- `front_to_back_db` positive, `main_lobe_phi_deg` 0 (radiating toward the directors)
 - Success: true
 
 ---
@@ -226,7 +228,7 @@ EN
 
 **Expected Results:**
 - Complete workflow executes successfully
-- Reasonable gain (~13 dBi for 5-element)
+- Reasonable gain (~11 dBi for 5-element at 435 MHz), reported as simulated
 - VSWR < 2:1 near 435 MHz
 - Valid NEC2 card deck exported
 
@@ -259,7 +261,8 @@ EN
 **Expected Results:**
 - 10 wire elements created
 - Simulation completes (may take 1-2 minutes)
-- High gain result (~17 dBi expected)
+- ~12.9 dBi at 144 MHz. Gain grows with the logarithm of boom length, so ten
+  elements is worth about 2 dB over five, not 10 dB.
 
 ---
 
@@ -268,7 +271,7 @@ EN
 | Test | Status | Notes |
 |------|--------|-------|
 | 1. Create Dipole | [x] | Length = 0.975m ✓ |
-| 2. Create Yagi | [x] | 5 elements, 13 dBi gain estimate ✓ |
+| 2. Create Yagi | [x] | 5 elements, 10.7 dBi simulated ✓ |
 | 3. Create Vertical | [x] | Height = 10.482m, 16 radials ✓ |
 | 4. Create Loop | [x] | Circumference = 21.112m ✓ |
 | 5. Create Inverted-V | [x] | Apex 20m, droop 45°, end height ~12.8m ✓ |
@@ -277,9 +280,9 @@ EN
 | 8. List Antennas | [x] | All created antennas listed correctly ✓ |
 | 9. List Types | [x] | All 5 types with gain/pattern info ✓ |
 | 10. Error Handling | [x] | Graceful "Antenna not found" error ✓ |
-| 11. Full Workflow | [x] | 5-el Yagi: 10.35 dBi, F/B 10.8 dB ✓ |
+| 11. Full Workflow | [x] | 5-el Yagi @435 MHz: 11.04 dBi, F/B 14.9 dB ✓ |
 | 12. Large Sweep | [x] | 51 points completed successfully ✓ |
-| 13. Complex Yagi | [x] | 10 elements, 10.51 dBi gain ✓ |
+| 13. Complex Yagi | [x] | 10 elements, 12.94 dBi ✓ |
 
 ---
 
@@ -287,7 +290,9 @@ EN
 
 1. **Simulation requires nec2c:** The MCP server requires the external `nec2c` solver
 2. **No persistence:** Antenna designs are stored in memory and lost on restart
-3. **Simplified models:** Antenna templates use common approximations
+3. **Simplified models:** Antenna templates use common approximations. The Yagi
+   uses textbook element ratios corrected for wire thickness; it is not an
+   optimised design and a dedicated optimiser will beat it by a decibel or so
 4. **No ground effects tuning:** Real ground parameters not exposed in all tools
 
 ---
