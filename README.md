@@ -37,16 +37,16 @@ gain, and front-to-back from a single tool call.
 
 **What mcp-nec2-antenna does well:**
 
-- 🤖 **AI-native via MCP.** First-class [Model Context Protocol](https://modelcontextprotocol.io)
+- **AI-native via MCP.** First-class [Model Context Protocol](https://modelcontextprotocol.io)
   server with 9 tools. Any Claude / LLM agent can drive it.
-- 📡 **Reference engine.** Uses the canonical NEC2C C implementation.
+- **Reference engine.** Uses the canonical NEC2C C implementation.
   The same solver behind 4nec2, xnec2c, and antenna textbooks.
-- ⚡ **Parameterized geometries.** Five built-in wire antennas with
+- **Parameterized geometries.** Five built-in wire antennas with
   closed-form initial sizing; the agent fills in band + height + element
   count and gets a ready-to-solve deck.
-- 📐 **Three ground models.** free-space, perfect ground, real
+- **Three ground models.** free-space, perfect ground, real
   (Sommerfeld) ground: picked per geometry.
-- 🔒 **AGPL-3.0-or-later.** Modifications shared back if served over a network.
+- **AGPL-3.0-or-later.** Modifications shared back if served over a network.
 
 ---
 
@@ -159,10 +159,10 @@ for the full list of sibling MCPs and bundle definitions.
 
 ## Documentation
 
-- 📘 **[Quick Start](docs/index.md)**: install through first call.
-- 🛠️ **[Tool reference](docs/tools.md)**. Every MCP tool, every argument.
-- 📐 **[Usage examples](docs/usage.md)**: practical end-to-end walkthroughs.
-- 🏗️ **[Architecture](docs/architecture.md)**: how this MCP fits in eng-mcp-suite.
+- **[Quick Start](docs/index.md)**: install through first call.
+- **[Tool reference](docs/tools.md)**. Every MCP tool, every argument.
+- **[Usage examples](docs/usage.md)**: practical end-to-end walkthroughs.
+- **[Architecture](docs/architecture.md)**: how this MCP fits in eng-mcp-suite.
 
 ---
 
