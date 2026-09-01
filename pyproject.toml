@@ -45,6 +45,9 @@ packages = ["src/mcp_nec2_antenna"]
 testpaths = ["tests"]
 pythonpath = ["src"]
 addopts = "-ra"
+markers = [
+    "nec2c: test shells out to the nec2c solver; skipped when it is not installed",
+]
 
 [tool.ruff]
 target-version = "py310"
